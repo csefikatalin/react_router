@@ -285,14 +285,15 @@ Próbáljuk ki például a `/valami` útvonalat!
 
 ## Publikálás és github pages link létrehozása
 
-Telepítsd a gh-pages csomagot.
+### Telepítsd a gh-pages csomagot.
 
 ```
 npm install -D gh-pages
 ```
 
+### A vite.config.ts módosítása
 
-A vite.config.ts módosítása
+Töltsd fel githubra a projektet, majd módosítsd a vite.config.js fájlt. 
 
 ```
 import { defineConfig } from "vite";
@@ -303,6 +304,55 @@ export default defineConfig({
   base: "/react-router-webshop/",
 });
 ```
+
+### A React Router beállítása GitHub Pageshez
+
+A createBrowserRouter() függvényben add meg a basename értékét:
+
 ```
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        // A korábbi útvonalak változatlanul maradnak
+      ],
+    },
+  ],
+  {
+    basename: import.meta.env.BASE_URL,
+  }
+);
 ```
+A basename biztosítja, hogy a router figyelembe vegye a /react-router-webshop/ előtagot. A meglévő Link és NavLink hivatkozásaidat nem kell átírni.
+
+Van azonban még egy probléma: ha valaki közvetlenül megnyitja például a /react-router-webshop/admin címet, a GitHub Pages 404-es hibát adhat, mert nem tudja, hogy ezt az útvonalat a React kezeli.
+
+Ennek megoldására egy egyszerű oktatási projektben a createHashRouter() is jó választás. Ekkor az URL például így néz ki:
+
+https://FELHASZNALONEV.github.io/react-router-webshop/#/admin
+
+Ehhez csak az importot és a router létrehozását kell megváltoztatnod az App.tsx-ben:
+
+
+```
+import { createHashRouter, RouterProvider } from "react-router";
+
+const router = createHashRouter([
+  // A korábbi útvonalak változatlanul maradnak
+]);
+```
+
+## A package.json módosítása
+A scripts részhez add hozzá a deploy parancsot:
+
+```
+"scripts": {
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "preview": "vite preview",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+}
 ```

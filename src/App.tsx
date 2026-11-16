@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createHashRouter, RouterProvider } from 'react-router';
 import './App.css'
 import Layout from './pages/Layout';
 import PublicPage from './pages/PublicPage';
@@ -9,7 +9,7 @@ import NoPage from './pages/NoPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
       element: <Layout />,
@@ -21,13 +21,18 @@ function App() {
         { path: "termek/:id", element: <ProductDetailPage /> },
         { path: "*", element: <NoPage /> },
       ],
+
     },
-  ]);
+  ],
+    {
+      basename: import.meta.env.BASE_URL,
+    }
+  );
 
   return (
- 
-       <RouterProvider router={router} />
-  
+
+    <RouterProvider router={router} />
+
   )
 }
 
