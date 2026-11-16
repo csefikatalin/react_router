@@ -319,10 +319,7 @@ const router = createBrowserRouter(
         // A korábbi útvonalak változatlanul maradnak
       ],
     },
-  ],
-  {
-    basename: import.meta.env.BASE_URL,
-  }
+  ]
 );
 ```
 A basename biztosítja, hogy a router figyelembe vegye a /react-router-webshop/ előtagot. A meglévő Link és NavLink hivatkozásaidat nem kell átírni.
