@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 1.5rem;
+  background: #203047;
+  color: white;
+}
+header h1{
+  color: white;
+}
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+nav a.active {
+  background: #416b96;
+  border-radius: 0.25rem;
+}
+
+main {
+  padding: 1.5rem;
+}
