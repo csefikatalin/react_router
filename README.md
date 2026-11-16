@@ -356,3 +356,11 @@ A scripts részhez add hozzá a deploy parancsot:
   "deploy": "gh-pages -d dist"
 }
 ```
+
+## Publikálás
+
+Ez elkészíti a projekt éles változatát, majd feltölti a gh-pages nevű ágra.
+
+```
+npm run deploy
+```
